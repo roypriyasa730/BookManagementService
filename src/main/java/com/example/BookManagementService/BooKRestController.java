@@ -1,24 +1,33 @@
 package com.example.BookManagementService;
 
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BooKRestController {
 
-    @GetMapping("/api/book")
-    String getBook() {
-        return "hello Mac";
+    @Autowired
+    BookRepository bookRepository;
+
+    @GetMapping("/api/book/{bookId}")
+    BookModel getBook(@PathVariable Long bookId) {
+        return bookRepository.findById(bookId).get();
     }
 
     @PostMapping("/api/book")
     String restBook(@Valid @RequestBody BookRequest book) {
-        return "bookName : " + book.getBookName()+" book publisher" +book.getPublisher();
+
+        BookModel bookModel = new BookModel();
+        bookModel.setBookName(book.getBookName());
+        bookModel.setPublisher(book.getPublisher());
+        bookModel.setPrice(book.getPrice());
+        bookRepository.save(bookModel);
+        return "";
+
     }
+
+
 
 
 }

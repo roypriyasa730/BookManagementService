@@ -1,5 +1,7 @@
 package com.example.BookManagementService;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,6 +13,7 @@ public class BookRequest {
     @NotNull
     String publisher;
 
+    @Min(1)
     int price;
 
     public String getBookName() {
