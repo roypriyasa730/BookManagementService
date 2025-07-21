@@ -1,19 +1,19 @@
 package com.example.BookManagementService;
 
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class BookRequest {
-    @NotBlank
-    @NotNull
+public class BookRequestBody {
+    @NotBlank(message = "Book name is required and cannot be blank")
+    @NotNull(message = "Book name cannot be null")
     String bookName;
 
-    @NotNull
+    @NotNull(message = "Publisher cannot be null")
+    @NotBlank(message = "Publisher is required and cannot be blank")
     String publisher;
 
-    @Min(1)
+    @Min(value = 1, message = "Price must be greater than 0")
     int price;
 
     public String getBookName() {
@@ -40,4 +40,3 @@ public class BookRequest {
         this.price = price;
     }
 }
-
